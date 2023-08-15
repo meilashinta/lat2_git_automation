@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Pegawai extends Model
+{
+    use HasFactory;
+    protected $table = 'pegawais'; // Nama tabel di database
+    protected $fillable = [
+        'divisi_id',
+        'nama_pegawai',
+        'tgl_lahir',
+        'jenis_kelamin',
+        'email',
+        'no_tlp',
+        'alamat'
+    ]; // Kolom yang dapat diisi
+
+    // Relasi pegawai ke divisi
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, 'divisi_id', 'id');
+    }
+}
