@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserController;
@@ -23,11 +25,14 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->m
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
+
+//frontend
+Route::get('/',[FrontendController::class, 'index']);
+Route::get('/profile',[FrontendController::class, 'profile']);
+Route::get('/koleksi',[FrontendController::class, 'koleksi']);
+Route::get('/koleksi/{id}', [FrontendController::class, 'showKoleksiDetail'])->name('koleksi.detail');
+
 //dashboard
-
-
-
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
     //manajemen pengguna
@@ -59,7 +64,10 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-//kegiatan
+//inventaris koleksi
+Route::get('/dashboard-koleksi',[KoleksiController::class,'index']);
+Route::get('/dashboard-koleksi/create',[KoleksiController::class,'create']);
+Route::post('/dashboard-koleksi',[KoleksiController::class,'store']);
 
 //museum-masuk-sekolah
 Route::resource('/dashboard/daftar-sekolah', SekolahController::class);

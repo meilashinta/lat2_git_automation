@@ -25,14 +25,19 @@
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
+      @if(session('errorLogin'))
+      <div class="alert alert-danger">
+        {{ session('errorLogin') }}
+      </div>
+      @endif
 
       <form action="/login" method="POST">
         @csrf
         <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" placeholder="Email">
+          <input type="text" name="username" class="form-control" placeholder="Username">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
+              <span class="fas fa-user"></span>
             </div>
           </div>
         </div>

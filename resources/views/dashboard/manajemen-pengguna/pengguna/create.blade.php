@@ -59,7 +59,17 @@
                                     </span>
                                 </div>    
                                 </div>
-                            
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Username</label>
+                                <div class="input-group">
+                                <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>    
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email</label>

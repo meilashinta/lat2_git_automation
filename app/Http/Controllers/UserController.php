@@ -9,10 +9,12 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         $users = User::all();
-        return view('dashboard.manajemen-pengguna.pengguna.index',
+        return view(
+            'dashboard.manajemen-pengguna.pengguna.index',
             [
                 'user' => $users
             ]
@@ -24,15 +26,17 @@ class UserController extends Controller
         return view('dashboard.manajemen-pengguna.pengguna.create');
     }
 
-    
+
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
+            'username' => 'required|username|unique:users,username',
             'email' => 'required|email|unique:users,email', // Menambahkan "email" setelah "users" untuk menentukan kolom yang harus dicek unik
             'password' => 'required|min:6',
             // Tambahkan validasi untuk atribut lainnya sesuai kebutuhan
         ], [
+            'username.unique' => 'Username sudah digunakan. Silakan gunakan username lain.',
             'email.unique' => 'Email sudah digunakan. Silakan gunakan email lain.',
             'password.min' => 'Password harus memiliki setidaknya 6 karakter.',
             // Tambahkan pesan error lain sesuai kebutuhan
@@ -41,6 +45,7 @@ class UserController extends Controller
         // Simpan data pengguna ke dalam basis data
         User::create([
             'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
             // Simpan atribut lainnya sesuai kebutuhan
@@ -65,16 +70,19 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
+            'username' => 'required|username|unique:users,username' . $id,
             'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|min:6', // Hanya jika ingin mengubah kata sandi
             // Tambahkan aturan validasi untuk atribut lainnya jika diperlukan
         ], [
+            'username.unique' => 'Username sudah digunakan. Silakan gunakan username lain.',
             'email.unique' => 'Email sudah digunakan. Silakan gunakan email lain.',
             'password.min' => 'Password harus memiliki setidaknya 6 karakter.',
             // Tambahkan pesan error lain sesuai kebutuhan
         ]);
 
         $user->name = $request->name;
+        $user->username = $request->username;
         $user->email = $request->email;
 
         if ($request->filled('password')) {
