@@ -11,8 +11,17 @@ class UserController extends Controller
 {
     public function index()
     {
+        $loggedInUser = auth()->user(); // Mendapatkan informasi pengguna yang sedang masuk
 
-        $users = User::all();
+        if ($loggedInUser->role === 'admin') {
+            $users = User::whereIn('role', ['sekolah', 'dinas_pendidikan'])->get();
+        } elseif ($loggedInUser->role === 'superadmin'){
+            $users = User::all();
+             // Kosongkan jika peran pengguna bukan admin
+        }else{
+            $users = collect();
+        }
+
         return view(
             'dashboard.manajemen-pengguna.pengguna.index',
             [
@@ -20,6 +29,7 @@ class UserController extends Controller
             ]
         );
     }
+
 
     public function create()
     {
@@ -31,8 +41,9 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'username' => 'required|username|unique:users,username',
-            'email' => 'required|email|unique:users,email', // Menambahkan "email" setelah "users" untuk menentukan kolom yang harus dicek unik
+            'username' => 'required|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'role' => 'required',
             'password' => 'required|min:6',
             // Tambahkan validasi untuk atribut lainnya sesuai kebutuhan
         ], [
@@ -47,12 +58,14 @@ class UserController extends Controller
             'name' => $request->name,
             'username' => $request->username,
             'email' => $request->email,
+            'role' => $request->role,
             'password' => bcrypt($request->password),
             // Simpan atribut lainnya sesuai kebutuhan
         ]);
 
         return redirect('/dashboard-pengguna')->with('success', 'Pengguna berhasil ditambahkan!');
     }
+
 
 
 

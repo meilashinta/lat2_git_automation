@@ -3,10 +3,15 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DivisiController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\HistoriKunjunganController;
+use App\Http\Controllers\JadwalKunjunganController;
 use App\Http\Controllers\KoleksiController;
+use App\Http\Controllers\KunjunganPetugasController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserController;
+use App\Models\HistoriKunjungan;
+use App\Models\KunjunganPetugas;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +35,8 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/',[FrontendController::class, 'index']);
 Route::get('/profile',[FrontendController::class, 'profile']);
 Route::get('/koleksi',[FrontendController::class, 'koleksi']);
+Route::get('/bukutamu',[FrontendController::class, 'bukutamu']);
+Route::post('/bukutamu',[FrontendController::class, 'store']);
 Route::get('/koleksi/{id}', [FrontendController::class, 'showKoleksiDetail'])->name('koleksi.detail');
 
 //dashboard
@@ -61,14 +68,30 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-pegawai/{id}', [PegawaiController::class,'show']);
     Route::get('/dashboard-pegawai/{id}/edit', [PegawaiController::class,'edit']);
     Route::put('/dashboard-pegawai/{id}', [PegawaiController::class,'update'])->name('pegawai.update');
+
+    
+    //inventaris koleksi
+    Route::get('/dashboard-koleksi',[KoleksiController::class,'index']);
+    Route::get('/dashboard-koleksi/create',[KoleksiController::class,'create']);
+    Route::post('/dashboard-koleksi',[KoleksiController::class,'store']);
+
+    //jadwal-kunjungan
+    Route::get('/dashboard-jadwal-kunjungan',[JadwalKunjunganController::class,'index']);
+    Route::get('/dashboard-jadwal-kunjungan/create',[JadwalKunjunganController::class,'create']);
+    Route::post('/dashboard-jadwal-kunjungan',[JadwalKunjunganController::class,'store']);
+
+    //histori-kunjungan
+    Route::get('/dashboard-histori-kunjungan',[HistoriKunjunganController::class,'index']);
+    Route::post('/histori/{id}',[HistoriKunjunganController::class,'store']);
+
+    //kunjungan-petugas
+    Route::get('/dashboard-kunjungan-petugas/create',[KunjunganPetugasController::class,'create']);
+    Route::post('/dashboard-kunjungan-petugas',[KunjunganPetugasController::class,'store']);
+    Route::post('/dashboard-kunjungan-petugas/{id}/success', [KunjunganPetugasController::class, 'updateStatusSuccess'])->name('kunjungan-petugas.success');
 });
 
 
-//inventaris koleksi
-Route::get('/dashboard-koleksi',[KoleksiController::class,'index']);
-Route::get('/dashboard-koleksi/create',[KoleksiController::class,'create']);
-Route::post('/dashboard-koleksi',[KoleksiController::class,'store']);
 
-//museum-masuk-sekolah
-Route::resource('/dashboard/daftar-sekolah', SekolahController::class);
+// //museum-masuk-sekolah
+// Route::resource('/dashboard/daftar-sekolah', SekolahController::class);
 

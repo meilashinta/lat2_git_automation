@@ -94,11 +94,10 @@
                         <td>{{ $item->divisi->nama_divisi ?? '-' }}</td>
                         <td>
                             <div class="">
-                                <a href="/dashboard-pegawai/{{ $item->id }}/edit" class="btn btn-success btn-sm rounded-0"><i class="fa fa-edit"></i> Ubah</a>
-                                <a href="/dashboard-pegawai/{{ $item->id }}" class="btn btn-info btn-sm rounded-0"><i class="fa fa-eye"></i> Detail</a>
-                                <button type="button" class="btn btn-warning btn-sm rounded-0 swalDeleteButton" data-toggle="modal" data-target="#modal-delete{{ $item->id }}">
-                                    <i class="fa fa-trash"></i> Hapus
-                                </button>
+                                <a href="/dashboard-pegawai/{{ $item->id }}/edit" class="btn btn-success btn-sm rounded-0" title="ubah"><i class="fa fa-edit"></i></a>
+                                <a href="/dashboard-pegawai/{{ $item->id }}" class="btn btn-info btn-sm rounded-0" title="detail"><i class="fa fa-eye"></i></a>
+                                <button type="button" class="btn btn-warning btn-sm rounded-0 swalDeleteButton" title="hapus" data-toggle="modal" data-target="#modal-delete{{ $item->id }}">
+                                    <i class="fa fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>

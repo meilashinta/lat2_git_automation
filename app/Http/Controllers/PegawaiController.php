@@ -15,7 +15,7 @@ class PegawaiController extends Controller
     public function index()
     {
         $pegawai = Pegawai::all();
-        return view('dashboard.manajemen-pengguna.pegawai.index',[
+        return view('dashboard.manajemen-pengguna.pegawai.index', [
             'pegawais' => $pegawai
         ]);
     }
@@ -24,50 +24,50 @@ class PegawaiController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-{
-    $divisis = Divisi::all(); // Mengambil semua data divisi
-    return view('dashboard.manajemen-pengguna.pegawai.create', compact('divisis'));
-}
+    {
+        $divisis = Divisi::all(); // Mengambil semua data divisi
+        return view('dashboard.manajemen-pengguna.pegawai.create', compact('divisis'));
+    }
 
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'nama_pegawai' => 'required',
-        'tgl_lahir' => 'required|date',
-        'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-        'email' => 'required|email',
-        'no_tlp' => 'required',
-        'divisi_id' => 'required|exists:divisis,id',
-        'alamat' => 'required',
-        'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
-    ]);
+    {
+        $request->validate([
+            'nama_pegawai' => 'required',
+            'tgl_lahir' => 'required|date',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'email' => 'required|email',
+            'no_tlp' => 'required',
+            'divisi_id' => 'required|exists:divisis,id',
+            'alamat' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
+        ]);
 
-    // Jika validasi berhasil, simpan data pegawai ke database
-    $pegawai = Pegawai::create([
-        'nama_pegawai' => $request->nama_pegawai,
-        'tgl_lahir' => $request->tgl_lahir,
-        'jenis_kelamin' => $request->jenis_kelamin,
-        'email' => $request->email,
-        'no_tlp' => $request->no_tlp,
-        'divisi_id' => $request->divisi_id,
-        'alamat' => $request->alamat,
-    ]);
+        // Jika validasi berhasil, simpan data pegawai ke database
+        $pegawai = Pegawai::create([
+            'nama_pegawai' => $request->nama_pegawai,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'email' => $request->email,
+            'no_tlp' => $request->no_tlp,
+            'divisi_id' => $request->divisi_id,
+            'alamat' => $request->alamat,
+        ]);
 
-    // Proses unggah dan simpan foto jika ada
-    if ($request->hasFile('avatar')) {
-        $avatar = $request->file('avatar');
-        $avatarPath = $avatar->store('avatars', 'public'); // Simpan di direktori 'storage/app/public/avatars'
-        // Simpan path foto ke database
-        $pegawai->avatar = $avatarPath;
-        $pegawai->save();
+        // Proses unggah dan simpan foto jika ada
+        if ($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $avatarPath = $avatar->store('avatars', 'public'); // Simpan di direktori 'storage/app/public/avatars'
+            // Simpan path foto ke database
+            $pegawai->avatar = $avatarPath;
+            $pegawai->save();
+        }
+
+        return redirect('/dashboard-pegawai')->with('success', 'Pegawai berhasil ditambahkan');
     }
-
-    return redirect('/dashboard-pegawai')->with('success', 'Pegawai berhasil ditambahkan');
-}
 
 
 
@@ -75,25 +75,25 @@ class PegawaiController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-{
-    $pegawai = Pegawai::findOrFail($id);
-    return view('dashboard.manajemen-pengguna.pegawai.detail', compact('pegawai'));
-}
+    {
+        $pegawai = Pegawai::findOrFail($id);
+        return view('dashboard.manajemen-pengguna.pegawai.detail', compact('pegawai'));
+    }
 
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-{
-    $pegawai = Pegawai::findOrFail($id);
-    $divisis = Divisi::all(); // Ambil semua catatan divisi
+    {
+        $pegawai = Pegawai::findOrFail($id);
+        $divisis = Divisi::all(); // Ambil semua catatan divisi
 
-    return view('dashboard.manajemen-pengguna.pegawai.edit', [
-        'pegawai' => $pegawai,
-        'divisis' => $divisis
-    ]);
-}
+        return view('dashboard.manajemen-pengguna.pegawai.edit', [
+            'pegawai' => $pegawai,
+            'divisis' => $divisis
+        ]);
+    }
 
 
     /**
@@ -140,16 +140,16 @@ class PegawaiController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-{
-    $pegawai = Pegawai::findOrFail($id);
+    {
+        $pegawai = Pegawai::findOrFail($id);
 
-    // Hapus foto jika ada
-    if ($pegawai->avatar) {
-        Storage::disk('public')->delete($pegawai->avatar);
+        // Hapus foto jika ada
+        if ($pegawai->avatar) {
+            Storage::disk('public')->delete($pegawai->avatar);
+        }
+
+        $pegawai->delete();
+
+        return redirect('/dashboard-pegawai')->with('delete', 'Pegawai berhasil dihapus');
     }
-
-    $pegawai->delete();
-
-    return redirect('/dashboard-pegawai')->with('delete', 'Pegawai berhasil dihapus');
-}
 }

@@ -69,7 +69,7 @@
             data-aos="fade-up"
             data-aos-delay="200"
           >
-            <button type="submit" class="btn btn-primary">Login</button>
+            <a href="/login" type="submit" class="btn btn-primary">Login</a>
           </form>
         </div>
       </div>

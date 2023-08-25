@@ -24,4 +24,9 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Divisi::class, 'divisi_id', 'id');
     }
+    
+    public function kunjunganPetugas()
+    {
+        return $this->hasMany(KunjunganPetugas::class);
+    }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('avatar')->nullable(); // Tambahkan kolom avatar
             $table->timestamps();
 
-            $table->foreign('divisi_id')->references('id')->on('divisis');
+            $table->foreign('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
         });
     }
 

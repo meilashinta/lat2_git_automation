@@ -1,5 +1,5 @@
 @extends('dashboard.layouts.main')
-@section('title', 'Pengguna')
+@section('title', 'Inventaris Koleksi')
 @section('container')
 
 @if (session()->has('success'))
@@ -22,45 +22,16 @@
 </div>
 @endif
 
-@if (session()->has('delete'))
-<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="text-center">
-                    <div class="mb-3">
-                        <i class="fas fa-check-circle fa-5x text-success"></i>
-                    </div>
-                    <p>{{ session('delete') }}</p>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endif
-<script>
-    // Show the success modal when the page loads
-    document.addEventListener('DOMContentLoaded', function () {
-        var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-        myModal.show();
-    });
-</script>
-
-
-
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Pengguna</h1>
+                <h1 class="m-0">Inventaris Koleksi</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
-                    <li class="breadcrumb-item active">Pengguna</li>
+                    <li class="breadcrumb-item active">Koleksi</li>
                 </ol>
             </div><!-- /.col -->
         </div>
@@ -69,7 +40,7 @@
 
 <div class="card">
     <div class="card-header">
-        <a href="/dashboard-pengguna/create" class="btn text-light btn-sm rounded-0 btn-tambah" style="background-color: #20c997   "><i class="fas fa-plus"></i> Tambah Pengguna</a>
+        <a href="/dashboard-jadwal-kunjungan/create" class="btn btn-primary btn-sm rounded-0"><i class="fas fa-plus"></i> Tambah Koleksi</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -77,62 +48,76 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Nama</th>
-                        <th>Email(s)</th>
-                        <th>Role</th>
+                        <th>Nama Sekolah </th>
+                        <th>Tanggal Kunjungan</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Petugas</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach ($user as $item)
+                {{-- <tbody>
+                    @foreach ($jadwalKunjungan as $item )
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->name ?? '-' }}</td>
-                        <td>{{ $item->email ?? '-' }}</td>
-                        <td>{{ $item->role ?? '-' }}</td>
-                        {{-- <td>
-                            @if($item->role == 'superadmin')
-                                <button class="btn btn-primary rounded-5 btn-sm">Superadmin</button>
-                            @elseif($item->role == 'admin')
-                                <button class="btn btn-success">Admin</button>
-                            @elseif($item->role == 'dinas_pendidikan')
-                                <button class="btn btn-info">Dinas Pendidikan</button>
-                            @elseif($item->role == 'sekolah')
-                                <button class="btn btn-warning">Sekolah</button>
+                        <td>
+                            @if ($item->user->role === 'sekolah')
+                                <select name="sekolah_id" class="form-control">
+                                    <option value="{{ $item->user->id }}" selected>{{ $item->user->name }}</option>
+                                </select>
+                            @else
+                                {{ $item->user->name }}
                             @endif
-                        </td> --}}
-                        <td class="text-center">
-                            <div class="">
-                                <a href="/dashboard-pengguna/{{ $item->id }}/edit" class="btn btn-success btn-sm rounded-0"><i class="fa fa-edit"></i> Ubah</a>
-                                <button type="button" class="btn btn-warning btn-sm rounded-0 swalDeleteButton" data-toggle="modal" data-target="#modal-delete{{ $item->id }}">
-                                    <i class="fa fa-trash"></i> Hapus
+                        </td>
+                        <td>{{ $item->tgl_kunjungan }}</td>
+                        <td>{{ $item->jam_mulai }}</td>
+                        <td>{{ $item->jam_selesai }}</td>
+                        <td>{{ $item->petugas }}</td>
+                        <td>
+                            @if ($item->status === 1)
+                                Berhasil
+                            @elseif ($item->status === 0)
+                                Gagal
+                            @else
+                                Tidak Diketahui
+                            @endif
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a href="/edit-jadwal-kunjungan/{{ $item->id }}" class="btn btn-success btn-sm rounded-0" title="edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <button type="button" class="btn btn-warning btn-sm rounded-0 swalDeleteButton"  title="hapus" data-toggle="modal" data-target="#modal-delete{{ $item->id }}">
+                                    <i class="fa fa-trash"></i>
                                 </button>
                             </div>
                         </td>
                     </tr>
                     @endforeach
-                </tbody>
+                </tbody> --}}
+                
             </table>
         </div>
     </div>
 </div>
 
-@foreach ($user as $item)
+{{-- @foreach ($jadwalKunjungan as $item)
 <div class="modal fade" id="modal-delete{{ $item->id }}">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Konfirmasi Hapus Pengguna</h4>
+                <h4 class="modal-title">Konfirmasi Hapus Koleksi</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Apakah Anda yakin ingin menghapus pengguna ini?</p>
+                <p>Apakah Anda yakin ingin menghapus koleksi ini?</p>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                <form action="/dashboard-pengguna/{{ $item->id }}" method="POST" id="delete-form-{{ $item->id }}">
+                <form action="/hapus-koleksi/{{ $item->id }}" method="POST" id="delete-form-{{ $item->id }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger swalDeleteButton">Hapus</button>
@@ -141,9 +126,7 @@
         </div>
     </div>
 </div>
-@endforeach
-
-
+@endforeach --}}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

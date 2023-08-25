@@ -81,8 +81,41 @@
                                     </span>
                                 </div> 
                                 </div>
-                                
                             </div>
+                            @auth
+                            @if (auth()->user()->role == 'superadmin')
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="role" name="role" class="btn btn-info">
+                                        <option value="admin">Admin</option>
+                                        <option value="dinas_pendidikan">Dinas Pendidikan</option>
+                                        <option value="sekolah">Sekolah</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div> 
+                                </div>
+                            </div>
+                            @elseif(auth()->user()->role == 'admin')
+                            <div class="form-group">
+                                <label for="role">Role</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="role" name="role" class="btn btn-info">
+                                        <option value="dinas_pendidikan">Dinas Pendidikan</option>
+                                        <option value="sekolah">Sekolah</option>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-user"></i>
+                                        </span>
+                                    </div> 
+                                </div>
+                            </div>
+                            @endif
+                            @endauth
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <div class="input-group">
