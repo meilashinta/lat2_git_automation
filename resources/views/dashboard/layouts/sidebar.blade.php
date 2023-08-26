@@ -112,6 +112,16 @@
                                     <p>Jadwal Kunjungan</p>
                                 </a>
                             </li>
+                            <li class="nav-item" >
+                                <a href="{{ url('dashboard-histori-kunjungan') }}"
+                                    class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
+                                    style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>
+                                        Histori Kunjungan
+                                    </p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 @endif

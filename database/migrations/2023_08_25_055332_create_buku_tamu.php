@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('asal');
             $table->string('pekerjaan');
+            $table->string('usia');
             $table->string('kesan');
             $table->string('pesan');
             $table->timestamps();

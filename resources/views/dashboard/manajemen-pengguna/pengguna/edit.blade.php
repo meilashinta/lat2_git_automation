@@ -59,12 +59,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
+                                <label for="username">Username</label>
                                 <div class="input-group">
-                                <input type="email" class="form-control" id="email" name="email" value="{{ old('email',$user->email)}}">
+                                <input type="text" class="form-control disable" id="username" name="username" value="{{ old('username',$user->username)}}">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
+                                        <i class="fas fa-user"></i>
                                     </span>
                                 </div>
                                 </div>

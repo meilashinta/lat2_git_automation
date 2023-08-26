@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Untree.co" />
@@ -11,10 +12,8 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
 
     <link rel="stylesheet" href="{{ asset('frontend') }}/fonts/icomoon/style.css" />
     <link rel="stylesheet" href="{{ asset('frontend') }}/fonts/flaticon/font/flaticon.css" />
@@ -24,14 +23,14 @@
     <link rel="stylesheet" href="{{ asset('frontend') }}/css/style.css" />
 
     <title>
-      Museum Rumah Kelahiran BAC
+        Museum Rumah Kelahiran BAC
     </title>
-  </head>
+</head>
 
-  
-  <body>
+
+<body>
     <section class="content">
-      @yield('content')
+        @yield('content')
     </section>
     <script src="{{ asset('frontend') }}/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('frontend') }}/js/tiny-slider.js"></script>
@@ -39,5 +38,9 @@
     <script src="{{ asset('frontend') }}/js/navbar.js"></script>
     <script src="{{ asset('frontend') }}/js/counter.js"></script>
     <script src="{{ asset('frontend') }}/js/custom.js"></script>
-  </body>
+    <script src="{{ asset('frontend') }}/plugins/chart.js/Chart.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>

@@ -78,7 +78,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Email(s)</th>
+                        <th>Username</th>
                         <th>Role</th>
                         <th>Aksi</th>
                     </tr>
@@ -88,7 +88,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name ?? '-' }}</td>
-                        <td>{{ $item->email ?? '-' }}</td>
+                        <td>{{ $item->username ?? '-' }}</td>
                         <td>{{ $item->role ?? '-' }}</td>
                         {{-- <td>
                             @if($item->role == 'superadmin')

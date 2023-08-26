@@ -13,6 +13,7 @@ class BukuTamu extends Model
         'nama',
         'asal',
         'pekerjaan',
+        'usia',
         'kesan',
         'pesan',
         

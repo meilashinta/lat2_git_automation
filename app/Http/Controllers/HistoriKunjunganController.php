@@ -15,7 +15,7 @@ class HistoriKunjunganController extends Controller
     {
       $historiKunjungan = HistoriKunjungan::all(); // Atau sesuaikan dengan query yang Anda butuhkan
 
-        return view('histori.index', [
+        return view('dashboard.manajemen-kegiatan.histori-kunjungan.index', [
             'historiKunjungan' => $historiKunjungan,
         ]);
     }

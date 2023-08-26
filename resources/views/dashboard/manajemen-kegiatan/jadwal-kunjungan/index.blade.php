@@ -76,7 +76,7 @@
                         </td> --}}
                                 <td>
                                     <div class="btn-group">
-                                        <a href="/edit-jadwal-kunjungan/{{ $item->id }}"
+                                        <a href="dashboard-jadwal-kunjungan/{{ $item->id }}/edit"
                                             class="btn btn-success btn-sm rounded-0" title="edit">
                                             <i class="fa fa-edit"></i>
                                         </a>

@@ -82,6 +82,8 @@ class JadwalKunjunganController extends Controller
             'tgl_kunjungan' => 'required|date|after_or_equal:today',
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+        ], [
+            'tgl_kunjungan' => 'Jadwal kunjungan harus diisi hari dan dan setelah hari ini'
         ]);
 
         // Cek apakah jadwal kunjungan dengan tanggal dan jam yang sama sudah ada
@@ -128,19 +130,57 @@ class JadwalKunjunganController extends Controller
     }
 
     /**
+    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(JadwalKunjungan $jadwalKunjungan)
+    public function edit($id)
     {
-        //
+        $jadwalKunjungan = JadwalKunjungan::findOrFail($id);
+        return view('dashboard.manajemen-kegiatan.jadwal-kunjungan.edit', [
+            'jadwalKunjungan' => $jadwalKunjungan,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, JadwalKunjungan $jadwalKunjungan)
+    public function update(Request $request, $id)
     {
-        //
+        $jadwalKunjungan = JadwalKunjungan::findOrFail($id);
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'tgl_kunjungan' => 'required|date|after_or_equal:today',
+            'jam_mulai' => 'required|date_format:H:i',
+            'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
+        ], [
+            'tgl_kunjungan' => 'Jadwal kunjungan harus diisi hari dan dan setelah hari ini'
+        ]);
+
+        // Cek apakah ada konflik dengan jadwal kunjungan lain
+        $existingJadwal = JadwalKunjungan::where('tgl_kunjungan', $validatedData['tgl_kunjungan'])
+            ->where(function ($query) use ($validatedData, $jadwalKunjungan) {
+                $query->whereBetween('jam_mulai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhereBetween('jam_selesai', [$validatedData['jam_mulai'], $validatedData['jam_selesai']])
+                    ->orWhere(function ($query) use ($validatedData, $jadwalKunjungan) {
+                        $query->where('jam_mulai', '<=', $validatedData['jam_mulai'])
+                            ->where('jam_selesai', '>=', $validatedData['jam_selesai']);
+                    });
+            })
+            ->where('id', '<>', $jadwalKunjungan->id) // Exclude current record from comparison
+            ->first();
+
+        if ($existingJadwal) {
+            return redirect()->back()->withErrors(['message' => 'Jadwal kunjungan pada tanggal dan jam tersebut sudah ada.'])->withInput();
+        }
+
+        // Update jadwal kunjungan
+        $jadwalKunjungan->user_id = $validatedData['user_id'];
+        $jadwalKunjungan->tgl_kunjungan = $validatedData['tgl_kunjungan'];
+        $jadwalKunjungan->jam_mulai = $validatedData['jam_mulai'];
+        $jadwalKunjungan->jam_selesai = $validatedData['jam_selesai'];
+        $jadwalKunjungan->save();
+
+        return redirect('dashboard-jadwal-kunjungan');
     }
 
     /**
@@ -148,6 +188,7 @@ class JadwalKunjunganController extends Controller
      */
     public function destroy(JadwalKunjungan $jadwalKunjungan)
     {
-        //
+        $jadwalKunjungan->delete();
+        return redirect('dashboard-jadwal-kunjungan');
     }
 }

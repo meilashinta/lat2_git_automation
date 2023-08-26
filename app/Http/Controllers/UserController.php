@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -42,7 +43,7 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required|unique:users,username',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'nullable|email|unique:users,email',
             'role' => 'required',
             'password' => 'required|min:6',
             // Tambahkan validasi untuk atribut lainnya sesuai kebutuhan
@@ -83,15 +84,13 @@ class UserController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'username' => 'required|username|unique:users,username' . $id,
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:6', // Hanya jika ingin mengubah kata sandi
-            // Tambahkan aturan validasi untuk atribut lainnya jika diperlukan
+            'username' => 'required|username|unique:users,username,' . $id,
+            'email' => 'nullable|email|unique:users,email,' . $id,
+            'password' => 'nullable|min:6',
         ], [
             'username.unique' => 'Username sudah digunakan. Silakan gunakan username lain.',
             'email.unique' => 'Email sudah digunakan. Silakan gunakan email lain.',
             'password.min' => 'Password harus memiliki setidaknya 6 karakter.',
-            // Tambahkan pesan error lain sesuai kebutuhan
         ]);
 
         $user->name = $request->name;

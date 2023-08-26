@@ -101,7 +101,7 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $pegawai = Pegawai::findOrFail($id);
+        
         $pegawai = Pegawai::findOrFail($id);
         $request->validate([
             'nama_pegawai' => 'required',

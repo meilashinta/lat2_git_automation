@@ -71,17 +71,6 @@
                                 </div>    
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <div class="input-group">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan email">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-envelope"></i>
-                                    </span>
-                                </div> 
-                                </div>
-                            </div>
                             @auth
                             @if (auth()->user()->role == 'superadmin')
                             <div class="form-group">
