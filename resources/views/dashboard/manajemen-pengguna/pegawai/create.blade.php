@@ -99,6 +99,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label for="pesan" class="col-sm-3 col-form-label">Pesan</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" id="pesan" name="pesan" rows="3" placeholder="Masukkan alamat"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="alamat" class="col-sm-3 col-form-label">Alamat</label>
                                 <div class="col-sm-9">
                                     <textarea class="form-control" id="alamat" name="alamat" rows="3" placeholder="Masukkan alamat"></textarea>

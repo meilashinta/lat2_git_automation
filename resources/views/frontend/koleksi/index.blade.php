@@ -1,5 +1,39 @@
 @extends('frontend.layouts.main')
-@include('frontend.layouts.siteNav')
+{{-- @include('frontend.layouts.siteNav') --}}
+<nav class="site-nav ">
+  <div class="container">
+    <div class="menu-bg-wrap">
+      <div class="site-navigation">
+        <a href="index.html" class="logo m-0 float-start">Simuseum</a>
+
+        <ul
+          class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
+        >
+          <li class="active"><a href="index.html">Home</a></li>
+          <li class="has-children">
+            <a href="properties.html">Tentang Kami</a>
+            <ul class="dropdown">
+              <li><a href="#">Profil</a></li>
+              <li><a href="#">Visi Misi </a></li>
+            </ul>
+          </li>
+          <li><a href="services.html">Koleksi</a></li>
+          <li><a href="#sejarah">Sejarah</a></li>
+          <li><a href="contact.html">Kontak</a></li>
+        </ul>
+
+        <a
+          href="#"
+          class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none"
+          data-toggle="collapse"
+          data-target="#main-navbar"
+        >
+          <span></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
 <div class="hero page-inner overlay" style="background-image: url('{{ asset('frontend') }}/images/banner3.png')">
 <div class="container">
   <div class="row justify-content-center align-items-center">
@@ -15,7 +49,6 @@
       </nav>
     </div>
   </div>
-  @section('content')
   <div class="section section-properties">
     <div class="container">
       <div class="row">
@@ -351,8 +384,5 @@
       </div>
     </div>
   </div>
-  @endsection
-  
-</div>
 </div>
 @include('frontend.layouts.footer')

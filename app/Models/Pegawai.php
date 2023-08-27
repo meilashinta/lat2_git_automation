@@ -16,6 +16,7 @@ class Pegawai extends Model
         'jenis_kelamin',
         'email',
         'no_tlp',
+        'pesan',
         'alamat'
     ]; // Kolom yang dapat diisi
 

@@ -20,6 +20,7 @@ class PegawaiSeeder extends Seeder
             'jenis_kelamin' => 'Laki-laki',
             'email' => 'revan@example.com',
             'no_tlp' => '081234567890',
+            'pesan' => 'Museum diharapkan tidak hanya sekedar memantulkan perubahan-perubahan yang ada di lingkungan, tetapi juga sebagai media untuk menunjukkan perubahan sosial serta pertumbuhan budaya dan ekonomi. Museum berperan dalam proses transformasi yang mewujudkan perkembangan struktur intelektual dan tingkat kehidupan yang membaik.',
             'alamat' => 'Jl. Contoh No. 123',
             'avatar' => null,
             'created_at' => now(),

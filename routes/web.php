@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HistoriKunjunganController;
 use App\Http\Controllers\JadwalKunjunganController;
@@ -97,6 +98,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard-kunjungan-petugas/{id}/success', [KunjunganPetugasController::class, 'updateStatusSuccess'])->name('kunjungan-petugas.success');
 
     Route::get('/dashboard-laporan-buku-tamu/',[LaporanController::class,'showBukuTamu']);
+
+    Route::get('/dashboard-feedback',[FeedbackController::class,'index']);
 });
 
 

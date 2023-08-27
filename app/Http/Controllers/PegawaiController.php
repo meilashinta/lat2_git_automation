@@ -41,6 +41,7 @@ class PegawaiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'email' => 'required|email',
             'no_tlp' => 'required',
+            'pesan' => 'required',
             'divisi_id' => 'required|exists:divisis,id',
             'alamat' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
@@ -53,6 +54,7 @@ class PegawaiController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'email' => $request->email,
             'no_tlp' => $request->no_tlp,
+            'pesan' => $request->no_tlp,
             'divisi_id' => $request->divisi_id,
             'alamat' => $request->alamat,
         ]);
@@ -101,7 +103,6 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
         $pegawai = Pegawai::findOrFail($id);
         $request->validate([
             'nama_pegawai' => 'required',
@@ -109,6 +110,7 @@ class PegawaiController extends Controller
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'email' => 'required|email',
             'no_tlp' => 'required',
+            'pesan' => 'required',
             'divisi_id' => 'required|exists:divisis,id',
             'alamat' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
@@ -120,6 +122,7 @@ class PegawaiController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'email' => $request->email,
             'no_tlp' => $request->no_tlp,
+            'pesan' => $request->pesan,
             'divisi_id' => $request->divisi_id,
             'alamat' => $request->alamat,
         ]);

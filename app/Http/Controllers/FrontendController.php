@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BukuTamu;
 use App\Models\Koleksi;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -11,7 +12,11 @@ class FrontendController extends Controller
     public function index()
     {
         $koleksi = Koleksi::all();
-        return view('frontend.index', ['koleksi' => $koleksi]);
+        $pegawai = Pegawai::all();
+        return view('frontend.index', [
+            'koleksi' => $koleksi,
+            'pegawai' => $pegawai
+        ]);
     }
 
     public function profile()
@@ -73,6 +78,8 @@ class FrontendController extends Controller
         return redirect('/')
             ->with('success', 'Terimakasih sudah berkunjung!');
     }
+
+    
 }
     
     

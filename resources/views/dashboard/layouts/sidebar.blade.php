@@ -95,8 +95,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('dashboard-jadwal-kunjungan') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard/daftar-sekolah', 'dashboard-jadwal') ? '#20c997' : '' }}; color: white;">
+                        <a class="nav-link {{ Request::is('dashboard-jadwal-kunjungan','dashboard-histori-kunjungan') ? 'active' : '' }}"
+                            style="background-color: {{ Request::is('dashboard-jadwal-kunjungan','dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Manajemen Kegiatan
@@ -126,7 +126,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard/daftar-sekolah', 'dashboard-jadwal') ? '#20c997' : '' }}; color: white;">
+                            style="background-color: {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
                             <i class="nav-icon fas fa-file"></i>
                             <p>
                                 Laporan
@@ -135,17 +135,17 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ url('dashboard-jadwal-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-jadwal-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-jadwal-kunjungan', 'dashboard-jadwal-kunjungan') ? '#20c997' : '' }}; color: white;">
+                                <a href="{{ url('dashboard-laporan-kunjungan') }}"
+                                    class="nav-link {{ Request::is('dashboard-laporan-kunjungan') ? 'active' : '' }}"
+                                    style="background-color: {{ Request::is('dashboard-laporan-kunjungan') ? '#20c997' : '' }}; color: white;">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Laporan Kunjungan </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('dashboard-histori-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
+                                <a href="{{ url('dashboard-laporan-buku-tamu') }}"
+                                    class="nav-link {{ Request::is('dashboard-laporan-buku-tamu') ? 'active' : '' }}"
+                                    style="background-color: {{ Request::is('dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Laporan Buku Tamu
@@ -159,14 +159,13 @@
 
 
                 @if (Auth::user()->role == 'sekolah')
-                    <li class="nav-item" hidden>
-                        <a href="{{ url('dashboard-histori-kunjungan') }}"
-                            class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
+                    <li class="nav-item" >
+                        <a href="{{ url('dashboard-feedback') }}"
+                            class="nav-link {{ Request::is('dashboard-feedback') ? 'active' : '' }}"
+                            style="background-color: {{ Request::is('dashboard-feedback') ? '#20c997' : '' }}; color: white;">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
-                                Histori Kunjungan
-
+                                Form Feedback
                             </p>
                         </a>
                     </li>
@@ -216,15 +215,15 @@
                             <li class="nav-item">
                                 <a href="{{ url('dashboard-jadwal-kunjungan') }}"
                                     class="nav-link {{ Request::is('dashboard-jadwal-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-jadwal-kunjungan', 'dashboard-jadwal-kunjungan') ? '#20c997' : '' }}; color: white;">
+                                    style="background-color: {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Laporan Kunjungan </p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('dashboard-histori-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
+                                <a href="{{ url('dashboard-laporan-buku-tamu') }}"
+                                    class="nav-link {{ Request::is('dashboard-laporan-buku-tamu') ? 'active' : '' }}"
+                                    style="background-color: {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>
                                         Laporan Buku Tamu

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('jenis_kelamin');
             $table->string('email');
             $table->string('no_tlp');
+            $table->text('pesan');
             $table->string('alamat');
             $table->string('avatar')->nullable(); // Tambahkan kolom avatar
             $table->timestamps();
