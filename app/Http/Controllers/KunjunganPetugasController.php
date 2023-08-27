@@ -24,11 +24,13 @@ class KunjunganPetugasController extends Controller
     public function updateStatusSuccess(Request $request, $id)
     {
         $kunjunganPetugas = KunjunganPetugas::findOrFail($id);
+        $jadwalKunjungan = JadwalKunjungan::with('pegawai')->get();
 
         // dd($kunjunganPetugas->id);
 
         HistoriKunjungan::create([
-            'kunjungan_petugas_id' => $kunjunganPetugas->id
+            'kunjungan_petugas_id' => $kunjunganPetugas->id,
+            'jadwalKunjungan' => $jadwalKunjungan 
         ]);
         // Hapus data dari tabel kunjungan_petugas
         $kunjunganPetugas->update([
