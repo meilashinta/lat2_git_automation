@@ -115,40 +115,36 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($kunjunganPetugas as $item)
-                            {{-- @dd($kunjunganPetugas) --}}
+                        @foreach ($kunjunganPetugas->groupBy('jadwalKunjungan_id') as $jadwalId => $groupedItems)
+                            @php
+                                $firstItem = $groupedItems->first();
+                                $namaPetugas = $groupedItems->pluck('petugas.nama_pegawai')->implode(', ');
+                            @endphp
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->jadwalKunjungan->user->name ?? '-' }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->jadwalKunjungan->tgl_kunjungan)->format('d F Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->jadwalKunjungan->jam_mulai)->format('H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->jadwalKunjungan->jam_selesai)->format('H:i') }}</td>
+                                <td>{{ $firstItem->jadwalKunjungan->user->name ?? '-' }}</td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->tgl_kunjungan)->format('d F Y') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_mulai)->format('H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_selesai)->format('H:i') }}</td>
                                 <td>
-                                    {{ $item->petugas->nama_pegawai }}
+                                    @if ($firstItem->petugas)
+                                        {{ $namaPetugas }}
+                                    @else
+                                        Tidak ada petugas
+                                    @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('kunjungan-petugas.success', ['id' => $item->id]) }}" method="post">
+                                    <form action="{{ route('kunjungan-petugas.success', ['id' => $firstItem->id]) }}" method="post">
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">
                                             Berhasil
                                         </button>
                                     </form>
-                                    {{-- <form action="/dashboard/{{$item->id}}" method="post">
-                                        @csrf
-                                        <button type="submit" class="btn btn-success btn-sm rounded-0 statusButton" data-status="1">
-                                            Berhasil
-                                        </button>
-                                        <button type="submit" class="btn btn-danger btn-sm rounded-0 statusButton" data-status="0">
-                                            Gagal
-                                        </button>
-                                    </form> --}}
-                                    <!-- Button for 'Berhasil' status -->
-                                   
                                 </td>
-                                
                             </tr>
                         @endforeach
                     </tbody>
+                    
 
                 </table>
             </div>

@@ -78,13 +78,13 @@ class UserController extends Controller
         ]);
     }
 
+    
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-
         $request->validate([
             'name' => 'required',
-            'username' => 'required|username|unique:users,username,' . $id,
+            'username' => 'required|unique:users,username,' . $id,
             'email' => 'nullable|email|unique:users,email,' . $id,
             'password' => 'nullable|min:6',
         ], [
@@ -93,18 +93,17 @@ class UserController extends Controller
             'password.min' => 'Password harus memiliki setidaknya 6 karakter.',
         ]);
 
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->email = $request->email;
-
+        $user->update([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+        ]);
+        
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
+            $user->save();
         }
-
         // Perbarui atribut lainnya jika diperlukan
-
-        $user->save();
-
         return redirect('/dashboard-pengguna')->with('success', 'Pengguna berhasil diperbarui!');
     }
 

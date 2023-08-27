@@ -155,34 +155,100 @@
 
             @include('dashboard.grafik.index')
 
-            <div class="card">
-                <div class="card-header">
-                    <h3>Kunjungan Harian</h3>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="float-right">
-                    {{-- <form action="{{ route('filter-kunjungan') }}" method="GET">
-                        <label for="filter_type">Filter:</label>
-                        <select name="filter_type" id="filter_type">
-                            <option value="minggu">Minggu</option>
-                            <option value="bulan">Bulan</option>
-                            <option value="tahun">Tahun</option>
-                        </select>
-                        <button type="submit" class="btn btn-primary">Apply</button>
-                    </form> --}}
+            @elseif (Auth::user()->role == 'sekolah')
+                <div class="card" hidden>
+                    <div class="card-header">
+                        <h3>Kunjungan Harian</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal </th>
+                                        <th>Nama </th>
+                                        <th>Asal</th>
+                                        <th>Pekerjaan</th>
+                                        <th>Usia</th>
+                                        <th>Kesan</th>
+                                        <th>Pesan</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bukutamu as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->asal }}</td>
+                                            <td>{{ $item->pekerjaan }}</td>
+                                            <td>{{ $item->usia }}</td>
+                                            <td>{{ $item->kesan }}</td>
+                                            <td>{{ $item->pesan }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Tanggal </th>
-                                    <th>Nama </th>
-                                    <th>Asal</th>
-                                    <th>Pekerjaan</th>
-                                    <th>Usia</th>
-                                    <th>Kesan</th>
-                                    <th>Pesan</th>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Sekolah </th>
+                                        <th>Tanggal Kunjungan</th>
+                                        <th>Jam Mulai</th>
+                                        <th>Jam Selesai</th>
+                                        <th>Petugas</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($historiKunjungan as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->user->name }}</td>
+                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->tgl_kunjungan }}</td>
+                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_mulai }}</td>
+                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_selesai }}</td>
+                                            <td>{{ $item->kunjunganPetugas->petugas->nama_pegawai }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            @elseif (Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin' || Auth::user()->role || 'dinas_pendidikan')
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Kunjungan Harian</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal </th>
+                                        <th>Nama </th>
+                                        <th>Asal</th>
+                                        <th>Pekerjaan</th>
+                                        <th>Usia</th>
+                                        <th>Kesan</th>
+                                        <th>Pesan</th>
 
 
                                 </tr>
@@ -210,5 +276,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 @endsection

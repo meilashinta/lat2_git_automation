@@ -9,7 +9,6 @@ use App\Models\Koleksi;
 use App\Models\KunjunganPetugas;
 use App\Models\Pegawai;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\FlareClient\View;
@@ -32,37 +31,33 @@ class DashboardController extends Controller
                 $query->where('user_id', $user->id);
             })->get();
         }
+
+
         $totalPegawai = Pegawai::count();
-        $totalTamu =  BukuTamu::count();
         $totalPengguna = User::count();
-        $totalJadwal = KunjunganPetugas::count();
+        $totalJadwal = JadwalKunjungan::count();
         $totalKoleksi = Koleksi::count();
 
         $bukutamu = BukuTamu::orderBy('created_at', 'desc')->paginate(10);
 
+        $totalTamu = BukuTamu::count();
+        $bukutamu = BukuTamu::orderBy('created_at', 'desc')->paginate(10);
 
+        $adminCount = User::where('role', 'admin')->count();
         $currentYear = Carbon::now()->year;
 
         $bukuTamuCounts = BukuTamu::getAllBukuTamaByCreatedAt();
 
         return view('dashboard.index', [
             'totalPegawai' => $totalPegawai,
-            'totalTamu' => $totalTamu,
             'totalPengguna' => $totalPengguna,
             'totalJadwal' => $totalJadwal,
             'totalKoleksi' => $totalKoleksi,
             'historiKunjungan' => $historiKunjungan,
+            'totalTamu' => $totalTamu, 
             'bukutamu' => $bukutamu,
-            'bukuTamuCounts' => $bukuTamuCounts,
-        ]);
-    }
+            'adminCount' => $adminCount,
 
-
-    public function filterGrafik(Request $request)
-    {
-        $bukuTamuCounts = BukuTamu::getAllBukuTamaByCreatedAt($request->interval, $request->value);
-        return view('dashboard.index', [
-            'bukuTamuCounts' => $bukuTamuCounts,
         ]);
     }
 

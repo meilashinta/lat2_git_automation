@@ -7,6 +7,7 @@ use App\Http\Controllers\HistoriKunjunganController;
 use App\Http\Controllers\JadwalKunjunganController;
 use App\Http\Controllers\KoleksiController;
 use App\Http\Controllers\KunjunganPetugasController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SekolahController;
 use App\Http\Controllers\UserController;
@@ -94,6 +95,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-kunjungan-petugas/create', [KunjunganPetugasController::class, 'create']);
     Route::post('/dashboard-kunjungan-petugas', [KunjunganPetugasController::class, 'store']);
     Route::post('/dashboard-kunjungan-petugas/{id}/success', [KunjunganPetugasController::class, 'updateStatusSuccess'])->name('kunjungan-petugas.success');
+
+    Route::get('/dashboard-laporan-buku-tamu/',[LaporanController::class,'showBukuTamu']);
 });
 
 
