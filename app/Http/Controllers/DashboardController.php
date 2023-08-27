@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\FlareClient\View;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -37,7 +38,12 @@ class DashboardController extends Controller
         $totalJadwal = KunjunganPetugas::count();
         $totalKoleksi = Koleksi::count();
 
-        $bukutamu = BukuTamu::all();
+        $bukutamu = BukuTamu::orderBy('created_at', 'desc')->paginate(10);
+
+
+        $currentYear = Carbon::now()->year;
+
+        $bukuTamuCounts = BukuTamu::getAllBukuTamaByCreatedAt();
 
         return view('dashboard.index', [
             'totalPegawai' => $totalPegawai,
@@ -47,6 +53,16 @@ class DashboardController extends Controller
             'totalKoleksi' => $totalKoleksi,
             'historiKunjungan' => $historiKunjungan,
             'bukutamu' => $bukutamu,
+            'bukuTamuCounts' => $bukuTamuCounts,
+        ]);
+    }
+
+
+    public function filterGrafik(Request $request)
+    {
+        $bukuTamuCounts = BukuTamu::getAllBukuTamaByCreatedAt($request->interval, $request->value);
+        return view('dashboard.index', [
+            'bukuTamuCounts' => $bukuTamuCounts,
         ]);
     }
 

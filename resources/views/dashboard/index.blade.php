@@ -24,136 +24,136 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
 
-           
-            @if (Auth::user()->role == 'superadmin')
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $totalTamu }}</h3>
-                            <p>Buku Tamu</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-stalker"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $totalPengguna }}</h3>
-                            <p>Pengguna</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $totalJadwal }}</h3>
-                            <p>Jadwal Kunjungan</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-calendar"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $totalKoleksi }}</h3>
-                            <p>Koleksi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-            </div>
-        @elseif(Auth::user()->role == 'admin')
-            <div class="row">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>{{ $totalTamu }}</h3>
-                            <p>Buku Tamu</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-stalker"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>{{ $totalPengguna }}</h3>
-                            <p>Pengguna</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-person-add"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>{{ $totalJadwal }}</h3>
-                            <p>Kunjungan Petugas</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-calendar"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>{{ $totalKoleksi }}</h3>
-                            <p>Koleksi</p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-pie-graph"></i>
-                        </div>
-                        <a href="#" class="small-box-footer">More info <i
-                                class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <!-- ./col -->
-            </div>
-        @endif
-        
 
+            @if (Auth::user()->role == 'superadmin')
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{ $totalTamu }}</h3>
+                                <p>Buku Tamu</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-stalker"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{ $totalPengguna }}</h3>
+                                <p>Pengguna</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{ $totalJadwal }}</h3>
+                                <p>Jadwal Kunjungan</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-calendar"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{ $totalKoleksi }}</h3>
+                                <p>Koleksi</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+            @elseif(Auth::user()->role == 'admin')
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>{{ $totalTamu }}</h3>
+                                <p>Buku Tamu</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-stalker"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3>{{ $totalPengguna }}</h3>
+                                <p>Pengguna</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-person-add"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3>{{ $totalJadwal }}</h3>
+                                <p>Kunjungan Petugas</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-calendar"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-danger">
+                            <div class="inner">
+                                <h3>{{ $totalKoleksi }}</h3>
+                                <p>Koleksi</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-pie-graph"></i>
+                            </div>
+                            <a href="#" class="small-box-footer">More info <i
+                                    class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                    <!-- ./col -->
+                </div>
+            @endif
+
+            @include('dashboard.grafik.index')
 
             <div class="card">
                 <div class="card-header">
@@ -190,11 +190,11 @@
                             <tbody>
                                 @foreach ($bukutamu as $item)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ ($bukutamu->currentpage() - 1) * $bukutamu->perpage() + $loop->index + 1 }}</td>
                                         <td>{{ $item->tanggal }}</td>
-                                        <td>{{ $item->nama}}</td>
+                                        <td>{{ $item->nama }}</td>
                                         <td>{{ $item->asal }}</td>
-                                        <td>{{ $item->pekerjaan}}</td>
+                                        <td>{{ $item->pekerjaan }}</td>
                                         <td>{{ $item->usia }}</td>
                                         <td>{{ $item->kesan }}</td>
                                         <td>{{ $item->pesan }}</td>
@@ -204,8 +204,11 @@
 
                         </table>
                     </div>
+                    <div class="d-flex justify-content-end">
+                        {{ $bukutamu->links() }} 
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 @endsection

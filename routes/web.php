@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/filter-kunjungan', [App\Http\Controllers\DashboardController::class, 'filterKunjungan'])->name('filter-kunjungan');
 
 
-    //manajemen pengguna
+    //manajemen pengguna    
     //pengguna
     Route::get('/dashboard-pengguna', [UserController::class, 'index']);
     Route::get('/dashboard-pengguna/create', [UserController::class, 'create']);
