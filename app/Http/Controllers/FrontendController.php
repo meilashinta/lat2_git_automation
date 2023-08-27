@@ -11,12 +11,8 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        $koleksi = Koleksi::all();
-        $pegawai = Pegawai::all();
-        return view('frontend.index', [
-            'koleksi' => $koleksi,
-            'pegawai' => $pegawai
-        ]);
+        $koleksi = Koleksi::orderBy('created_at', 'desc')->paginate(10);
+        return view('frontend.index', ['koleksi' => $koleksi]);
     }
 
     public function profile()

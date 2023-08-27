@@ -25,7 +25,7 @@
             </div><!-- /.row -->
 
 
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::user()->role == 'superadmin')
                 <div class="row">
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -52,7 +52,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="dashboard-pengguna" class="small-box-footer">More info <i
+                            <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -82,54 +82,14 @@
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="dashboard-koleksi" class="small-box-footer">More info <i
+                            <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <!-- ./col -->
                 </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Kunjungan Harian</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal </th>
-                                        <th>Nama </th>
-                                        <th>Asal</th>
-                                        <th>Pekerjaan</th>
-                                        <th>Usia</th>
-                                        <th>Kesan</th>
-                                        <th>Pesan</th>
-
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($bukutamu as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->asal }}</td>
-                                            <td>{{ $item->pekerjaan }}</td>
-                                            <td>{{ $item->usia }}</td>
-                                            <td>{{ $item->kesan }}</td>
-                                            <td>{{ $item->pesan }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            @elseif(Auth::user()->role == 'dinas_pendidikan')
-                <div class="row" hidden>
+            @elseif(Auth::user()->role == 'admin')
+                <div class="row">
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-info">
@@ -155,7 +115,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="dashboard-pengguna" class="small-box-footer">More info <i
+                            <a href="#" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -191,62 +151,12 @@
                     </div>
                     <!-- ./col -->
                 </div>
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-md-3">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-monument"></i></span>
+            @endif
 
-                            <div class="info-box-content">
-                                <span class="info-box-text">Museum Padang</span>
-                                <span class="info-box-number">
-                                    {{ $adminCount }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="card" hidden>
-                    <div class="card-header">
-                        <h3>Kunjungan Harian</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal </th>
-                                        <th>Nama </th>
-                                        <th>Asal</th>
-                                        <th>Pekerjaan</th>
-                                        <th>Usia</th>
-                                        <th>Kesan</th>
-                                        <th>Pesan</th>
+            @include('dashboard.grafik.index')
 
 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($bukutamu as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->asal }}</td>
-                                            <td>{{ $item->pekerjaan }}</td>
-                                            <td>{{ $item->usia }}</td>
-                                            <td>{{ $item->kesan }}</td>
-                                            <td>{{ $item->pesan }}</td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            @elseif (Auth::user()->role == 'sekolah')
+            @if (Auth::user()->role == 'sekolah')
                 <div class="card" hidden>
                     <div class="card-header">
                         <h3>Kunjungan Harian</h3>
@@ -343,7 +253,8 @@
                                 <tbody>
                                     @foreach ($bukutamu as $item)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ ($bukutamu->currentpage() - 1) * $bukutamu->perpage() + $loop->index + 1 }}
+                                            </td>
                                             <td>{{ $item->tanggal }}</td>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->asal }}</td>
@@ -357,12 +268,13 @@
 
                             </table>
                         </div>
+                        <div class="d-flex justify-content-end">
+                            {{ $bukutamu->links() }}
+                        </div>
                     </div>
-                </div>
             @endif
-
-
-
         </div>
+    </div>
+    </div>
     </div>
 @endsection
