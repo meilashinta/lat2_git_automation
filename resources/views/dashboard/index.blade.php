@@ -155,11 +155,8 @@
 
             @include('dashboard.grafik.index')
 
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            @elseif (Auth::user()->role == 'sekolah')
+
+            @if (Auth::user()->role == 'sekolah')
                 <div class="card" hidden>
                     <div class="card-header">
                         <h3>Kunjungan Harian</h3>
@@ -251,31 +248,33 @@
                                         <th>Pesan</th>
 
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($bukutamu as $item)
-                                    <tr>
-                                        <td>{{ ($bukutamu->currentpage() - 1) * $bukutamu->perpage() + $loop->index + 1 }}</td>
-                                        <td>{{ $item->tanggal }}</td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->asal }}</td>
-                                        <td>{{ $item->pekerjaan }}</td>
-                                        <td>{{ $item->usia }}</td>
-                                        <td>{{ $item->kesan }}</td>
-                                        <td>{{ $item->pesan }}</td>
                                     </tr>
-                                @endforeach
-                            </tbody>
+                                </thead>
+                                <tbody>
+                                    @foreach ($bukutamu as $item)
+                                        <tr>
+                                            <td>{{ ($bukutamu->currentpage() - 1) * $bukutamu->perpage() + $loop->index + 1 }}
+                                            </td>
+                                            <td>{{ $item->tanggal }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->asal }}</td>
+                                            <td>{{ $item->pekerjaan }}</td>
+                                            <td>{{ $item->usia }}</td>
+                                            <td>{{ $item->kesan }}</td>
+                                            <td>{{ $item->pesan }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
 
-                        </table>
+                            </table>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            {{ $bukutamu->links() }}
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        {{ $bukutamu->links() }} 
-                    </div>
-                </div>
-            </div>
+            @endif
         </div>
+    </div>
     </div>
     </div>
 @endsection

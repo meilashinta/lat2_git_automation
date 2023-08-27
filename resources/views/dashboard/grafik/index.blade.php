@@ -11,9 +11,7 @@
 
 
 @php
-    
     $dataForChart = [];
-    
     usort($bukuTamuCounts, function ($a, $b) {
         return strcmp($a['created_date'], $b['created_date']);
     });

@@ -9,6 +9,7 @@ use App\Models\Koleksi;
 use App\Models\KunjunganPetugas;
 use App\Models\Pegawai;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\FlareClient\View;
@@ -57,6 +58,7 @@ class DashboardController extends Controller
             'totalTamu' => $totalTamu, 
             'bukutamu' => $bukutamu,
             'adminCount' => $adminCount,
+            'bukuTamuCounts' => $bukuTamuCounts,
 
         ]);
     }
