@@ -13,13 +13,12 @@
     <div class="container">
         <div class="row justify-content-center align-items-center">
             <div class="col-lg-9 text-center mt-5">
-                <h1 class="heading" data-aos="fade-up">Profile</h1>
-
+                <h1 class="heading" data-aos="fade-up">Sejarah</h1>
                 <nav aria-label="breadcrumb" data-aos="fade-up" data-aos-delay="200">
                     <ol class="breadcrumb text-center justify-content-center">
-                        <li class="breadcrumb-item"><a href="{{url('/')}}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{url('/')}}">Home</a></li>
                         <li class="breadcrumb-item active text-white-50" aria-current="page">
-                            Profile
+                            Sejarah
                         </li>
                     </ol>
                 </nav>
@@ -31,26 +30,16 @@
     <div class="container">
         <div class="row">
             <div class="col-6">
-              <img src="{{ asset('frontend')}}/images/banner5.jpeg" alt="banner" class="img-fluid">
+              <img src="{{asset('frontend')}}/images/bagindo.jpg" alt="bagindo" class="img-fluid" >
             </div>          
             <div class="col-md-6">
-              <h2>Museum Rumah Kelahiran Bagindo Azizchan</h2>
+              <h2>Sejarah Rumah Kelahiran Bagindo Azizchan</h2>
               <div class="row">
                   <div class="col">
-                      <p><strong>Alamat Museum:</strong><br> Jl. Alang Laweh Koto IV No. 7 Padang</p>
-                      <p><strong>Nomor Telepon:</strong><br> 085375711000</p>
-                      <p><strong>Email:</strong><br> museumbagindoazizchan@gmail.com</p>
-                      <p><strong>Narahubung:</strong><br> 089504092329</p>
-                      <p><strong>Jenis Museum:</strong><br> Museum Rumah Bersejarah</p>
+                    <p style="text-align: justify">Bagindo Aziz Chan merupakan Walikota Padang kedua setelah kemerdekaan yang gigih menentang Belanda. Ia dilantik pada tanggal 15 Agustus 1946 menggantikan Mr. Abubakar Jaar. Ia gugur dalam usia 36 tahun ditembak oleh pasukan Belanda di Simpang Kandih, Kampung Lapai. Jasadnya dikebumikan di Taman Makam Pahlawan Bahagia, Bukittinggi.</p>
                   </div>
                   <div class="col">
-                      <p><strong>Nama Pemilik dan Jenis Pengelolaan:</strong><br> Pemko Padang</p>
-                      <p><strong>Jumlah Koleksi:</strong><br> Sebanyak 59 Buah Koleksi</p>
-                      <p><strong>Tanggal Berdiri dan Peresmian:</strong><br> Berdirinya dan diresmikan Pada Tanggal 18 Juli 2019</p>
-                      <p><strong>Sumber Pendanaan:</strong><br> APBD, Melalui Dinas Pendidikan dan Kebudayaan Kota Padang</p>
-                      <p><strong>Kepemilikan Tanah/bangunan:</strong><br> Sertifikat Hak Milik</p>
-                      <p><strong>Luas Lahan dan Bangunan:</strong><br> -</p>
-                      <p><strong>Harga Tiket Museum:</strong><br> Gratis (sampai menunggu kebijakan pengelola museum selanjutnya)</p>
+                    <p style="text-align: justify">Pada tahun 2005 sudah mulai rencana untuk menjadikan rumah kelahiran Bagindo Azizchan menjadi Museum, namun baru terlaksana pada Tahun 2017 dimulai lah renovasi rumah kelahiran Bagindo Azizchan yang sudah rusak akibat usia dan gempa 2009. Tahun 2018 dilanjutkan lagi dengan renovasi dan pembangunan rumah kelahiran Bagindo Azizchan. Museum ini diresmikan pada tanggal 18 Juli 2019.</p>
                   </div>
               </div>
           </div>         

@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('buku_tamus', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->string('nama');
-            $table->string('asal');
-            $table->string('pekerjaan');
-            $table->string('usia');
-            $table->string('kesan');
-            $table->string('pesan');
+            $table->string('nama', 50);
+            $table->string('asal', 25);
+            $table->string('pekerjaan', 25);
+            $table->unsignedSmallInteger('usia'); // Menggunakan tipe data unsignedSmallInteger
+            $table->text('kesan'); // Mengubah tipe data ke text
+            $table->text('pesan'); // Mengubah tipe data ke text
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

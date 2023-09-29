@@ -52,7 +52,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="dashboard-pengguna" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="dashboard-koleksi" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -115,7 +115,7 @@
                             <div class="icon">
                                 <i class="ion ion-person-add"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="dashboard-pengguna" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -145,7 +145,7 @@
                             <div class="icon">
                                 <i class="ion ion-pie-graph"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i
+                            <a href="dashboard-koleksi" class="small-box-footer">More info <i
                                     class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
@@ -153,11 +153,13 @@
                 </div>
             @endif
 
-            @include('dashboard.grafik.index')
+            @if (auth()->user()->role == 'admin')
+                @include('dashboard.grafik.index')
+            @endif
 
 
             @if (Auth::user()->role == 'sekolah')
-                <div class="card" hidden>
+                {{-- <div class="card" hidden>
                     <div class="card-header">
                         <h3>Kunjungan Harian</h3>
                     </div>
@@ -196,7 +198,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -212,14 +214,25 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($historiKunjungan as $item)
+                                    @php
+                                        $historiGrouped = $historiKunjungan->groupBy('kunjunganPetugas.jadwalKunjungan.user.id');
+                                    @endphp
+                                    @foreach ($historiGrouped as $userId => $historiGroup)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->user->name }}</td>
-                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->tgl_kunjungan }}</td>
-                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_mulai }}</td>
-                                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_selesai }}</td>
-                                            <td>{{ $item->kunjunganPetugas->petugas->nama_pegawai }}</td>
+                                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->user->name }}</td>
+                                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->tgl_kunjungan }}
+                                            </td>
+                                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->jam_mulai }}</td>
+                                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->jam_selesai }}</td>
+                                            <td>
+                                                @foreach ($historiGroup as $index => $item)
+                                                    {{ $item->kunjunganPetugas->petugas->nama_pegawai }}
+                                                    @if ($index < count($historiGroup) - 1)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -228,9 +241,9 @@
                         </div>
                     </div>
                 </div>
-            @elseif (Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin' || Auth::user()->role || 'dinas_pendidikan')
-                <div class="card">
-                    <div class="card-header">
+                {{-- @elseif (Auth::user()->role == 'superadmin' || Auth::user()->role == 'admin' || Auth::user()->role || 'dinas_pendidikan') --}}
+                {{-- <div class="card"> --}}
+                {{-- <div class="card-header">
                         <h3>Kunjungan Harian</h3>
                     </div>
                     <div class="card-body">
@@ -271,7 +284,7 @@
                         <div class="d-flex justify-content-end">
                             {{ $bukutamu->links() }}
                         </div>
-                    </div>
+                    </div> --}}
             @endif
         </div>
     </div>

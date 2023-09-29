@@ -33,14 +33,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($historiKunjungan as $item)
+                    @php
+                        $historiGrouped = $historiKunjungan->groupBy('kunjunganPetugas.jadwalKunjungan.user.id');
+                    @endphp
+                    @foreach ($historiGrouped as $userId => $historiGroup)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->user->name }}</td>
-                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->tgl_kunjungan }}</td>
-                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_mulai }}</td>
-                            <td>{{ $item->kunjunganPetugas->jadwalKunjungan->jam_selesai }}</td>
-                            <td>{{ $item->kunjunganPetugas->petugas->nama_pegawai }}</td>
+                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->user->name ?? '-' }}</td>
+                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->tgl_kunjungan ?? '-'  }}</td>
+                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->jam_mulai ?? '-'  }}</td>
+                            <td>{{ $historiGroup[0]->kunjunganPetugas->jadwalKunjungan->jam_selesai ?? '-'  }}</td>
+                            <td>
+                                @foreach ($historiGroup as $index => $item)
+                                    {{ $item->kunjunganPetugas->petugas->nama_pegawai ?? '-'  }}
+                                    @if ($index < count($historiGroup) - 1)
+                                        ,
+                                    @endif
+                                @endforeach
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

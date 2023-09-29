@@ -25,8 +25,8 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        $divisis = Divisi::all(); // Mengambil semua data divisi
-        return view('dashboard.manajemen-pengguna.pegawai.create', compact('divisis'));
+        // $divisis = Divisi::all(); // Mengambil semua data divisi
+        return view('dashboard.manajemen-pengguna.pegawai.create');
     }
 
 
@@ -40,9 +40,9 @@ class PegawaiController extends Controller
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'email' => 'required|email',
+            'divisi' => 'required',
             'no_tlp' => 'required',
             'pesan' => 'required',
-            'divisi_id' => 'required|exists:divisis,id',
             'alamat' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
         ]);
@@ -53,9 +53,9 @@ class PegawaiController extends Controller
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'email' => $request->email,
+            'divisi' => $request->divisi,
             'no_tlp' => $request->no_tlp,
-            'pesan' => $request->no_tlp,
-            'divisi_id' => $request->divisi_id,
+            'pesan' => $request->pesan,
             'alamat' => $request->alamat,
         ]);
 
@@ -89,11 +89,11 @@ class PegawaiController extends Controller
     public function edit($id)
     {
         $pegawai = Pegawai::findOrFail($id);
-        $divisis = Divisi::all(); // Ambil semua catatan divisi
+        // $divisis = Divisi::all(); // Ambil semua catatan divisi
 
         return view('dashboard.manajemen-pengguna.pegawai.edit', [
             'pegawai' => $pegawai,
-            'divisis' => $divisis
+            // 'divisis' => $divisis
         ]);
     }
 
@@ -109,9 +109,9 @@ class PegawaiController extends Controller
             'tgl_lahir' => 'required|date',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
             'email' => 'required|email',
+            'divisi' => 'required',
             'no_tlp' => 'required',
             'pesan' => 'required',
-            'divisi_id' => 'required|exists:divisis,id',
             'alamat' => 'required',
             'avatar' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Validasi foto
         ]);
@@ -121,9 +121,9 @@ class PegawaiController extends Controller
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
             'email' => $request->email,
+            'divisi' => $request->divisi,
             'no_tlp' => $request->no_tlp,
             'pesan' => $request->pesan,
-            'divisi_id' => $request->divisi_id,
             'alamat' => $request->alamat,
         ]);
 

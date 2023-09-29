@@ -93,8 +93,7 @@
                                 <label for="role">Role</label>
                                 <div class="input-group">
                                     <select class="form-control" id="role" name="role" class="btn btn-info">
-                                        <option value="dinas_pendidikan">Dinas Pendidikan</option>
-                                        <option value="sekolah">Sekolah</option>
+                                        <option   value="sekolah">Sekolah</option>
                                     </select>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -106,17 +105,28 @@
                             @endif
                             @endauth
                             <div class="form-group">
-                                <label for="password">Password</label>
+                                <label for="kontak">Password</label>
                                 <div class="input-group">
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder=" Masukkan Password">
                                     <div class="input-group-append">
                                         <span class="input-group-text" id="togglePassword">
                                             <i class="fas fa-eye"></i>
                                         </span>
                                     </div>
                                 </div>
-                                
                             </div>
+                            {{-- <div class="form-group">
+                                <label for="kontak">Kontak</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="kontak" name="kontak" placeholder="Kontak Sekolah">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="togglePassword">
+                                            <i class="fas fa-phone"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div> --}}
+                            
                             <!-- Tambahkan form untuk atribut lainnya sesuai kebutuhan -->
                         </div>
                         <!-- /.card-body -->

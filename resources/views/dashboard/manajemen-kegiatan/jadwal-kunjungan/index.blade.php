@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    <div class="card">
+    {{-- <div class="card">
         <div class="card-header">
             <a href="/dashboard-jadwal-kunjungan/create" class="btn btn-primary btn-sm rounded-0"><i
                     class="fas fa-plus"></i> Tambah Jadwal Kunjungan</a>
@@ -59,21 +59,12 @@
                     <tbody>
                         @foreach ($jadwalKunjungan as $item)
                             <tr>
-                                {{-- @dd($kunjunganPetugas) --}}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->user->name }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->tgl_kunjungan)->format('d F Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->jam_mulai)->format('H:i') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->jam_selesai)->format('H:i') }}</td>
-                                {{-- <td>
-                            <!-- Button for 'Berhasil' status -->
-                            <button class="btn btn-success btn-sm rounded-0 statusButton" data-status="1">
-                                Berhasil
-                            </button>
-                            <button class="btn btn-danger btn-sm rounded-0 statusButton" data-status="0">
-                                Gagal
-                            </button>
-                        </td> --}}
+                                
                                 <td>
                                     <div class="btn-group">
                                         <a href="dashboard-jadwal-kunjungan/{{ $item->id }}/edit"
@@ -94,11 +85,13 @@
                 </table>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="card">
         <div class="card-header">
             <a href="/dashboard-kunjungan-petugas/create" class="btn btn-primary btn-sm rounded-0"><i
                     class="fas fa-plus"></i> Tambah Kunjungan Petugas</a>
+            <a href="/dashboard-jadwal-kunjungan/create" class="btn btn-primary btn-sm rounded-0"><i
+                    class="fas fa-plus"></i> Tambah Jadwal Kunjungan</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -111,7 +104,7 @@
                             <th>Jam Mulai</th>
                             <th>Jam Selesai</th>
                             <th>Petugas</th>
-                            <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,18 +116,22 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $firstItem->jadwalKunjungan->user->name ?? '-' }}</td>
-                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->tgl_kunjungan)->format('d F Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_mulai)->format('H:i') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_selesai)->format('H:i') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->tgl_kunjungan ?? '-')->format('d F Y') }}
+                                </td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_mulai ?? '-')->format('H:i') }}
+                                </td>
+                                <td>{{ \Carbon\Carbon::parse($firstItem->jadwalKunjungan->jam_selesai ?? '-')->format('H:i') }}
+                                </td>
                                 <td>
-                                    @if ($firstItem->petugas)
+                                    @if ($groupedItems->count() > 0)
                                         {{ $namaPetugas }}
                                     @else
                                         Tidak ada petugas
                                     @endif
                                 </td>
                                 <td>
-                                    <form action="{{ route('kunjungan-petugas.success', ['id' => $firstItem->id]) }}" method="post">
+                                    <form action="{{ route('kunjungan-petugas.success', ['id' => $firstItem->id]) }}"
+                                        method="post">
                                         @csrf
                                         <button type="submit" class="btn btn-success btn-sm">
                                             Berhasil
@@ -143,8 +140,41 @@
                                 </td>
                             </tr>
                         @endforeach
+                        {{-- @foreach ($kunjunganPetugas->groupBy('jadwalKunjungan_id') as $jadwalId => $groupedItems)
+                            @foreach ($groupedItems as $index => $item)
+                                <tr>
+                                    @if ($index === 0)
+                                        <td rowspan="{{ $groupedItems->count() }}">{{ $loop->iteration }}</td>
+                                        <td rowspan="{{ $groupedItems->count() }}">
+                                            {{ $item->jadwalKunjungan->user->name ?? '-' }}</td>
+                                        <td rowspan="{{ $groupedItems->count() }}">
+                                            {{ \Carbon\Carbon::parse($item->jadwalKunjungan->tgl_kunjungan)->format('d F Y') }}
+                                        </td>
+                                        <td rowspan="{{ $groupedItems->count() }}">
+                                            {{ \Carbon\Carbon::parse($item->jadwalKunjungan->jam_mulai)->format('H:i') }}
+                                        </td>
+                                        <td rowspan="{{ $groupedItems->count() }}">
+                                            {{ \Carbon\Carbon::parse($item->jadwalKunjungan->jam_selesai)->format('H:i') }}
+                                        </td>
+                                    @endif
+                                    <td>{{ $item->petugas ? $item->petugas->nama_pegawai : 'Tidak ada petugas' }}</td>
+                                    <td>
+                                        @if ($index === 0)
+                                            <form action="{{ route('kunjungan-petugas.success', ['id' => $item->id]) }}"
+                                                method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    Berhasil
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endforeach --}}
                     </tbody>
-                    
+
+
 
                 </table>
             </div>

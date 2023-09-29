@@ -16,7 +16,8 @@
             </div> --}}
             <div class="info">
                 @auth
-                    <a href="#" class="d-block" style="color: white;">{{ auth()->user()->name }}</a>
+                    <a href="{{ url('dashboard-profile') }}" class="d-block"
+                        style="color: white;">{{ auth()->user()->name }}</a>
                 @endauth
             </div>
         </div>
@@ -35,7 +36,7 @@
                     </a>
 
                 </li>
-                @if (Auth::user()->role != 'sekolah' && Auth::user()->role != 'superadmin' && Auth::user()->role != 'dinas_pendidikan')
+                @if (Auth::user()->role == 'admin' || Auth::user()->role == 'superadmin' )
                     <li class="nav-item">
                         <a class="nav-link {{ Request::is('dashboard-pengguna', 'dashboard-divisi', 'dashboard-pegawai') ? 'active' : '' }}"
                             style="background-color: {{ Request::is('dashboard-pengguna', 'dashboard-divisi', 'dashboard-pegawai') ? '#20c997' : '' }}; color: white;">
@@ -54,14 +55,14 @@
                                     <p>Pengguna</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a href="{{ url('dashboard-divisi') }}"
                                     class="nav-link {{ Request::is('dashboard-divisi') ? 'active' : '' }}"
                                     style="background-color: {{ Request::is('dashboard-divisi') ? '#20c997' : '' }}; color: white;">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Divisi</p>
                                 </a>
-                            </li>
+                            </li> --}}
                             <li class="nav-item">
                                 <a href="{{ url('dashboard-pegawai') }}"
                                     class="nav-link {{ Request::is('dashboard-pegawai') ? 'active' : '' }}"
@@ -95,8 +96,8 @@
                         </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('dashboard-jadwal-kunjungan','dashboard-histori-kunjungan') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard-jadwal-kunjungan','dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
+                        <a class="nav-link {{ Request::is('dashboard-jadwal-kunjungan', 'dashboard-histori-kunjungan') ? 'active' : '' }}"
+                            style="background-color: {{ Request::is('dashboard-jadwal-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
                             <i class="nav-icon fas fa-tree"></i>
                             <p>
                                 Manajemen Kegiatan
@@ -154,12 +155,8 @@
                             </li>
                         </ul>
                     </li>
-                @endif
-
-
-
-                @if (Auth::user()->role == 'sekolah')
-                    <li class="nav-item" >
+                @elseif (Auth::user()->role == 'sekolah')
+                    <li class="nav-item">
                         <a href="{{ url('dashboard-feedback') }}"
                             class="nav-link {{ Request::is('dashboard-feedback') ? 'active' : '' }}"
                             style="background-color: {{ Request::is('dashboard-feedback') ? '#20c997' : '' }}; color: white;">
@@ -169,112 +166,11 @@
                             </p>
                         </a>
                     </li>
-                @elseif(Auth::user()->role == 'admin')
-                    <li class="nav-item" hidden>
-                        <a href="{{ url('dashboard-histori-kunjungan') }}"
-                            class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
-                            <i class="nav-icon fas fa-tree"></i>
-                            <p>
-                                Histori Kunjungan
-
-                            </p>
-                        </a>
-                    </li>
-                @elseif(Auth::user()->role == 'superadmin')
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('dashboard-pengguna', 'dashboard-divisi', 'dashboard-pegawai') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard-pengguna', 'dashboard-divisi', 'dashboard-pegawai') ? '#20c997' : '' }}; color: white;">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>
-                                Manajemen Pengguna
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('dashboard-pengguna') }} "
-                                    class="nav-link {{ Request::is('dashboard-pengguna') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-pengguna') ? '#20c997' : '' }}; color: white;">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Pengguna</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard/daftar-sekolah', 'dashboard-jadwal') ? '#20c997' : '' }}; color: white;">
-                            <i class="nav-icon fas fa-file"></i>
-                            <p>
-                                Laporan
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('dashboard-jadwal-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-jadwal-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Laporan Kunjungan </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('dashboard-laporan-buku-tamu') }}"
-                                    class="nav-link {{ Request::is('dashboard-laporan-buku-tamu') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? '#20c997' : '' }}; color: white;">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        Laporan Buku Tamu
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                @elseif(Auth::user()->role == 'superadmin')
-                    <li class="nav-item" hidden>
-                        <a href="{{ url('dashboard-histori-kunjungan') }}"
-                            class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
-                            <i class="nav-icon fas fa-tree"></i>
-                            <p>
-                                Histori Kunjungan
-                            </p>
-                        </a>
-                    </li>
-                @elseif(Auth::user()->role == 'dinas_pendidikan')
-                    <li class="nav-item">
-                        <a class="nav-link {{ Request::is('dashboard-laporan-kunjungan', 'dashboard-laporan-buku-tamu') ? 'active' : '' }}"
-                            style="background-color: {{ Request::is('dashboard/daftar-sekolah', 'dashboard-jadwal') ? '#20c997' : '' }}; color: white;">
-                            <i class="nav-icon fas fa-file"></i>
-                            <p>
-                                Laporan
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="{{ url('dashboard-jadwal-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-jadwal-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-jadwal-kunjungan', 'dashboard-jadwal-kunjungan') ? '#20c997' : '' }}; color: white;">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Laporan Kunjungan </p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('dashboard-histori-kunjungan') }}"
-                                    class="nav-link {{ Request::is('dashboard-histori-kunjungan') ? 'active' : '' }}"
-                                    style="background-color: {{ Request::is('dashboard-histori-kunjungan', 'dashboard-histori-kunjungan') ? '#20c997' : '' }}; color: white;">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>
-                                        Laporan Buku Tamu
-                                    </p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
                 @endif
+
+
+
+
 
                 <!-- Login -->
 

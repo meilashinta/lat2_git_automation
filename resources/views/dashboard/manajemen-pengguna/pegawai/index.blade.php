@@ -91,7 +91,7 @@
                         </td>
                         <td>{{ $item->nama_pegawai ?? '-' }}</td>
                         <td>{{ $item->email ?? '-' }}</td>
-                        <td>{{ $item->divisi->nama_divisi ?? '-' }}</td>
+                        <td>{{ $item->divisi ?? '-'}}</td>
                         <td>
                             <div class="">
                                 <a href="/dashboard-pegawai/{{ $item->id }}/edit" class="btn btn-success btn-sm rounded-0" title="ubah"><i class="fa fa-edit"></i></a>
@@ -142,8 +142,8 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            
+        });
     });
 </script>
 

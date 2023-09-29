@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Koleksi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class KoleksiController extends Controller
 {
@@ -53,6 +54,8 @@ class KoleksiController extends Controller
             'asal' => 'required',
             'keadaan' => 'required',
             'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        ],[
+            'no_koleksi' => 'Nomor koleksi sudah ada, gunakan nomor koleksi yang lain.'
         ]);
 
 
@@ -95,24 +98,72 @@ class KoleksiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Koleksi $koleksi)
+    public function edit($id)
     {
-        //
+        $koleksi = Koleksi::findOrFail($id);
+        return view('dashboard.manajemen-museum.koleksi.edit', [
+            'koleksi' => $koleksi
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Koleksi $koleksi)
+    public function update(Request $request, $id)
     {
-        //
+        $koleksi = Koleksi::findOrFail($id);
+        $request->validate([
+            'no_koleksi' => 'required',
+            'nama_koleksi' => 'required',
+            'jenis_koleksi' => 'required',
+            'ukuran' => 'required|array',
+            'ukuran.panjang' => 'numeric',
+            'ukuran.lebar' => 'numeric',
+            'ukuran.diameter' => 'numeric',
+            'ukuran.tinggi' => 'numeric',
+            'deskripsi' => 'required',
+            'asal' => 'required',
+            'keadaan' => 'required',
+        ]);
+
+        // Update data koleksi
+        $koleksi->update([
+            'no_koleksi' => $request->no_koleksi,
+            'nama_koleksi' => $request->nama_koleksi,
+            'jenis_koleksi' => $request->jenis_koleksi,
+            'ukuran' => json_encode($request->ukuran),
+            'deskripsi' => $request->deskripsi,
+            'asal' => $request->asal,
+            'keadaan' => $request->keadaan,
+        ]);
+
+        // Proses unggah dan simpan foto jika ada
+        if ($request->hasFile('gambar')) {
+            $avatar = $request->file('gambar');
+            $koleksiPath = $avatar->store('koleksis', 'public');
+            // Simpan path foto ke database
+            $koleksi->gambar = $koleksiPath;
+            $koleksi->save();
+        }
+
+        // Redirect dengan pesan sukses
+        return redirect('/dashboard-koleksi')->with('success', 'Koleksi berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Koleksi $koleksi)
+    public function destroy($id)
     {
-        //
+        // Hapus data koleksi
+        $koleksi = Koleksi::findOrFail($id);
+
+        if ($koleksi->gambar) {
+            Storage::disk('public')->delete($koleksi->gambar);
+        }
+
+        $koleksi->delete();
+        // Redirect dengan pesan sukses
+        return redirect('/dashboard-koleksi')->with('success', 'Koleksi berhasil dihapus.');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\HistoriKunjungan;
 use App\Models\JadwalKunjungan;
 use App\Models\Koleksi;
 use App\Models\KunjunganPetugas;
+use App\Models\Museum;
 use App\Models\Pegawai;
 use App\Models\User;
 use Carbon\Carbon;
@@ -55,7 +56,7 @@ class DashboardController extends Controller
             'totalJadwal' => $totalJadwal,
             'totalKoleksi' => $totalKoleksi,
             'historiKunjungan' => $historiKunjungan,
-            'totalTamu' => $totalTamu, 
+            'totalTamu' => $totalTamu,
             'bukutamu' => $bukutamu,
             'adminCount' => $adminCount,
             'bukuTamuCounts' => $bukuTamuCounts,
@@ -92,6 +93,17 @@ class DashboardController extends Controller
         return view('dashboard.index', [
             'historiKunjungan' => $historiKunjungan,
             'bukutamu' => $bukutamu,
+        ]);
+    }
+
+    public function profileMuseum()
+    {
+
+        $user = auth()->user(); // Mengambil informasi pengguna yang sedang masuk
+        $museum = Museum::all();
+        return view('dashboard.profile.index', [
+            'user' => $user,
+            'museum' => $museum // Mengirimkan informasi pengguna ke tampilan
         ]);
     }
 }

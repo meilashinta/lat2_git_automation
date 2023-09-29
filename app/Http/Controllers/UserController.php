@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -16,10 +16,10 @@ class UserController extends Controller
 
         if ($loggedInUser->role === 'admin') {
             $users = User::whereIn('role', ['sekolah', 'dinas_pendidikan'])->get();
-        } elseif ($loggedInUser->role === 'superadmin'){
+        } elseif ($loggedInUser->role === 'superadmin') {
             $users = User::all();
-             // Kosongkan jika peran pengguna bukan admin
-        }else{
+            // Kosongkan jika peran pengguna bukan admin
+        } else {
             $users = collect();
         }
 
@@ -68,8 +68,6 @@ class UserController extends Controller
     }
 
 
-
-
     public function edit($id)
     {
         $users = User::findOrFail($id);
@@ -78,7 +76,7 @@ class UserController extends Controller
         ]);
     }
 
-    
+
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
@@ -98,7 +96,7 @@ class UserController extends Controller
             'username' => $request->username,
             'email' => $request->email,
         ]);
-        
+
         if ($request->filled('password')) {
             $user->password = bcrypt($request->password);
             $user->save();
@@ -115,5 +113,25 @@ class UserController extends Controller
         $users->delete();
 
         return redirect('/dashboard-pengguna')->with('delete', 'Pengguna berhasil dihapus.');
+    }
+
+    public function printUser($id)
+    {
+        $user = User::find($id);
+
+        // Pastikan hanya admin yang dapat mencetak informasi login
+        if (auth()->user()->role == 'admin' && $user->role == 'sekolah') {
+            // Generate password acak (misalnya, 8 karakter)
+            // $randomPassword = Str::random(8);
+
+            // Tampilkan view cetak dengan informasi login
+            return view('dashboard.manajemen-pengguna.pengguna.print')->with([
+                'username' => $user->username,
+                // 'password' => $user->password,
+            ]);
+        } else {
+            // Tampilkan pesan kesalahan jika admin tidak memiliki izin untuk mencetak
+            return redirect()->back()->with('error', 'Anda tidak memiliki izin untuk mencetak informasi ini.');
+        }
     }
 }

@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 //login
+
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login')->middleware('isLogin');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -36,7 +38,10 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 //frontend
 Route::get('/', [FrontendController::class, 'index']);
 Route::get('/profile', [FrontendController::class, 'profile']);
+Route::get('/visi-misi', [FrontendController::class, 'visiMisi']);
+Route::get('/sejarah', [FrontendController::class, 'sejarah']);
 Route::get('/koleksi', [FrontendController::class, 'koleksi']);
+Route::get('/kontak', [FrontendController::class, 'kontak']);
 Route::get('/bukutamu', [FrontendController::class, 'bukutamu']);
 Route::post('/bukutamu', [FrontendController::class, 'store']);
 Route::get('/koleksi/{id}', [FrontendController::class, 'showKoleksiDetail'])->name('koleksi.detail');
@@ -44,7 +49,9 @@ Route::get('/koleksi/{id}', [FrontendController::class, 'showKoleksiDetail'])->n
 //dashboard
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index']);
+    Route::get('/dashboard-profile', [App\Http\Controllers\DashboardController::class, 'profileMuseum']);
     Route::get('/dashboard/filter-kunjungan', [App\Http\Controllers\DashboardController::class, 'filterKunjungan'])->name('filter-kunjungan');
+
 
 
     //manajemen pengguna    
@@ -55,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/dashboard-pengguna/{id}', [UserController::class, 'destroy']);
     Route::get('/dashboard-pengguna/{id}/edit', [UserController::class, 'edit'])->name('pengguna.edit');
     Route::put('/dashboard-pengguna/{id}', [UserController::class, 'update'])->name('pengguna.update');
+    Route::get('/dashboard-pengguna/{id}/print', [UserController::class, 'printUser'])->name('pengguna.print');
+
     //  Route::resource('/dashboard-pengguna', UserController::class);
 
     //divisi
@@ -79,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard-koleksi', [KoleksiController::class, 'index']);
     Route::get('/dashboard-koleksi/create', [KoleksiController::class, 'create']);
     Route::post('/dashboard-koleksi', [KoleksiController::class, 'store']);
+    Route::get('/dashboard-koleksi/{id}/edit', [KoleksiController::class, 'edit']); // Tambahkan route edit
+    Route::put('/dashboard-koleksi/{id}', [KoleksiController::class, 'update']); // Tambahkan route update
+    Route::delete('/dashboard-koleksi/{id}', [KoleksiController::class, 'destroy']); // Tambahkan route destroy
 
     //jadwal-kunjungan
     Route::get('/dashboard-jadwal-kunjungan', [JadwalKunjunganController::class, 'index']);
@@ -97,9 +109,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/dashboard-kunjungan-petugas', [KunjunganPetugasController::class, 'store']);
     Route::post('/dashboard-kunjungan-petugas/{id}/success', [KunjunganPetugasController::class, 'updateStatusSuccess'])->name('kunjungan-petugas.success');
 
-    Route::get('/dashboard-laporan-buku-tamu/',[LaporanController::class,'showBukuTamu']);
+    Route::get('/dashboard-laporan-buku-tamu/', [LaporanController::class, 'index']);
+    Route::get('/dashboard-laporan-kunjungan/', [LaporanController::class, 'showKunjungan']);
 
-    Route::get('/dashboard-feedback',[FeedbackController::class,'index']);
+    Route::get('/dashboard-feedback', [FeedbackController::class, 'index']);
+    Route::resource('/dashboard-feedback', FeedbackController::class);
 });
 
 

@@ -13,20 +13,19 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('divisi_id');
-            $table->string('nama_pegawai');
-            $table->string('tgl_lahir');
-            $table->string('jenis_kelamin');
-            $table->string('email');
-            $table->string('no_tlp');
-            $table->text('pesan');
+            $table->string('nama_pegawai', 50);
+            $table->date('tgl_lahir'); // Ubah menjadi tipe data date
+            $table->string('jenis_kelamin', 10);
+            $table->string('email', 50)->unique(); // Tambahkan constraint unique pada email
+            $table->string('jabatan', 25);
+            $table->string('no_tlp', 12); // Ubah menjadi string (karena nomor telepon biasanya berupa string)
+            $table->text('pesan')->nullable(); // Tambahkan nullable pada pesan
             $table->string('alamat');
             $table->string('avatar')->nullable(); // Tambahkan kolom avatar
             $table->timestamps();
-
-            $table->foreign('divisi_id')->references('id')->on('divisis')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.

@@ -12,7 +12,11 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        return view('dashboard.feedback');
+        $user = auth()->user(); // Mengambil informasi pengguna yang sedang masuk
+        $feedback = Feedback::where('user_id', $user->id)->get(); // Mengambil umpan balik yang dibuat oleh pengguna tersebut
+        return view('dashboard.feedback', [
+            'feedback' => $feedback,
+        ]);
     }
 
     /**
@@ -20,7 +24,7 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        //
+        return view('frontend.feedback');
     }
 
     /**
@@ -28,7 +32,15 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $user = auth()->user(); // Mengambil informasi pengguna yang sedang masuk
+
+        $feedback = new Feedback();
+        $feedback->user_id = $user->id; // Menghubungkan umpan balik dengan ID pengguna yang membuatnya
+        $feedback->rating = $request->input('rating');
+        $feedback->kesan = $request->input('kesan');
+        $feedback->save();
+
+        return redirect('/dashboard-feedback')->with('success', 'Feedback berhasil disimpan.');
     }
 
     /**

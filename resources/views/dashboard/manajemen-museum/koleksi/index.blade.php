@@ -86,7 +86,7 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a href="/edit-koleksi/{{ $item->id }}" class="btn btn-success btn-sm rounded-0" title="edit"><i class="fa fa-edit"></i></a>
+                                <a href="/dashboard-koleksi/{{ $item->id }}/edit" class="btn btn-success btn-sm rounded-0" title="edit"><i class="fa fa-edit"></i></a>
                                 <button type="button" class="btn btn-warning btn-sm rounded-0 swalDeleteButton"  title="hapus" data-toggle="modal" data-target="#modal-delete{{ $item->id }}">
                                     <i class="fa fa-trash"></i></button>
                             </div>
@@ -114,7 +114,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
-                <form action="/hapus-koleksi/{{ $item->id }}" method="POST" id="delete-form-{{ $item->id }}">
+                <form action="/dashbaord-koleksi/{{ $item->id }}" method="POST" id="delete-form-{{ $item->id }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger swalDeleteButton">Hapus</button>

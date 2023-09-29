@@ -83,7 +83,8 @@ class JadwalKunjunganController extends Controller
             'jam_mulai' => 'required|date_format:H:i',
             'jam_selesai' => 'required|date_format:H:i|after:jam_mulai',
         ], [
-            'tgl_kunjungan' => 'Jadwal kunjungan harus diisi hari dan dan setelah hari ini'
+            'tgl_kunjungan' => 'Jadwal kunjungan harus diisi hari dan dan setelah hari ini',
+            'jam_selesai' => 'Jam selesai hari lebih dari jam mulai',
         ]);
 
         // Cek apakah jadwal kunjungan dengan tanggal dan jam yang sama sudah ada
