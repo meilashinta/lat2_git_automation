@@ -1,0 +1,81 @@
+name: Pull Request Checks
+
+on:
+  pull_request:
+    branches:
+      - "main"
+      - "develop"
+
+jobs:
+  lint:
+    name: Run PHP Linting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Install Dependencies
+        run: composer install --no-progress --no-suggest
+
+      - name: Run Linter
+        run: ./vendor/bin/pint --test
+
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+
+      - name: Setup MySQL
+        uses: shogo82148/actions-setup-mysql@v1
+        with:
+          mysql-version: "8.0"
+
+      - name: Install Dependencies
+        run: composer install --no-progress --no-suggest
+
+      - name: Copy .env example
+        run: cp .env.example .env
+
+      - name: Generate application key
+        run: php artisan key:generate
+
+      - name: Set up database
+        run: |
+          mysql -u root -e "CREATE DATABASE db_simsueum;"
+
+      - name: Run migrations and seeders
+        env:
+          DB_DATABASE: db_simsueum
+          DB_USERNAME: root
+          DB_PASSWORD: ""
+        run: php artisan migrate --seed --force
+
+      - name: Run PHPUnit Tests
+        run: ./vendor/bin/phpunit --testdox
+
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Security Scan
+        run: composer audit
