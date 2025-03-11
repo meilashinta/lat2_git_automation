@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class BukuTamu extends Model
 {
     protected $fillable = [
-        'tanggal',
+        'tanggal Datang',
         'nama',
         'asal',
         'pekerjaan',
